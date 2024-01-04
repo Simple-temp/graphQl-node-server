@@ -1,0 +1,248 @@
+=====================================
+query getAllusers {
+  users {
+    _id
+    name
+    email
+    password
+    website
+  }
+}
+
+=====================================
+
+query getAllPost {
+  allPost{
+    _id
+    by
+    post
+  }
+}
+
+=====================================
+
+query getPostWithName  {
+  posts{
+    post
+    by{
+      _id
+      name
+    }
+  }
+}
+
+=====================================
+
+query getUserAndPost {
+  users{
+    _id
+    name
+    email
+    password
+    website
+    posts {
+      by
+      post
+    }
+  }
+}
+
+======================================
+
+query getUserById{
+  user(_id:"1"){
+    _id
+    name
+    email
+    password
+    website
+    posts{
+      by
+      post
+    }
+  }
+}
+
+=======================================
+
+query getPostById {
+  post(by:"1"){
+    by
+    post
+  }
+}
+
+=======================================
+
+query getUserByQueryVariable ( $userId : ID!) {
+  
+  user(_id: $userId){
+    _id
+    name
+    email
+    password
+    website
+    posts{
+      by
+      post
+    }
+  }
+  
+}
+
+
+{
+  "userId": "1"
+}
+
+========================================
+
+query getPostByUserQueryVariable ( $postId : ID! ){
+  post( by : $postId ){
+    _id
+    by
+    post
+  }
+}
+
+query getPostByQueryVariable ( $postId : ID! ){
+  postById( _id : $postId ){
+    _id
+    by
+    post
+  }
+}
+
+{
+  "postId": "1"
+}
+
+========================================
+
+
+mutation signUpuser {
+  signUpuser(name:"user4",email:"user4@gmail.com",password:"12345",website:"website4.com"),{
+    _id
+    name
+    email
+    password
+    website
+  }
+}
+
+=========================================
+
+mutation signUpuser ( $newUser : createUser! ) {
+  user : signUpuser( newUser: $newUser ),{
+    _id
+    name
+    email
+    password
+    website
+  }
+}
+
+{
+  "newUser": {
+    "name" : "user5",
+    "email": "user5@gmail.com",
+    "password": "23456",
+    "website": "website5.com"
+  }
+}
+
+
+===========================================
+
+mutation signInuser ( $newUserSignIn : SignInUser! ) {
+  user : signUInUser( signInUser: $newUserSignIn ),{
+  	token
+  }
+}
+
+
+{
+    "newUserSignIn": {
+    "email": "user7@gmail.com",
+    "password": "23456"
+  }
+}
+
+
+============================================
+
+mutation createNewPost {
+  userpost : createPost (post : "This is another post 4 user 2")
+}
+
+=========================================
+
+mutation deleteuser ($userId : ID!){
+  delUser (_id : $userId){
+    _id
+    name
+    email
+    password
+    website
+  }
+}
+
+
+{
+  "userId": "62964ef16485d28c82afad17"
+}
+
+========================================
+
+mutation deletePost ($userId : ID!){
+  delPost (_id : $userId){
+    _id
+    post
+    by
+  }
+}
+
+
+
+{
+  "userId": "62964f166485d28c82afad1a"
+}
+
+========================================
+
+mutation updateuser ($Update : UpdateUser!) {
+  updateUser(UpdateUser : $Update){
+		_id
+    name
+    email
+    password
+    website
+  }
+}
+
+{
+  "Update": {
+    "_id": "62971c0fb132dc84234d36af",
+    "name": "Ridoy",
+    "email": "ridoy@gmail.com",
+    "password": "12343",
+    "website": "website2.com"
+  }
+}
+
+
+========================================
+
+mutation updatepost ( $Update : UpdatePost! ){
+  updatePost ( UpdatePost : $Update ){
+    _id
+    post
+  }
+}
+
+{
+  "Update": {
+    "_id": "62971be6b132dc84234d36aa",
+    "post": "post 5"
+  }
+}
